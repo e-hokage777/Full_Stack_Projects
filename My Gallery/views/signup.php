@@ -77,19 +77,25 @@ require_once("../core/general_functions.php");
             </header>
             <form action="" id="signup-form">
                 <h1>Register</h1>
+                <div id="register-success" class="success-field">Account has been created successfully</div>
+                <div id="general-error" class="error-field">An unexpected error occured</div>
                 <div class="inputs">
                     <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
                     <div>
                         <input type="text" name="username" placeholder="Username">
+                        <div id="username-error-field" class="error-field">Please enter valid username</div>
                     </div>
                     <div>
                         <input type="text" name="email" placeholder="Email">
+                        <div id="email-error-field" class="error-field">Please enter valid email</div>
                     </div>
                     <div>
                         <input type="password" name="password" placeholder="Password">
+                        <div id="password-error-field" class="error-field">Please enter valid password</div>
                     </div>
                     <div>
                         <input type="password" name="confirm-password" placeholder="Confirm-password">
+                        <div id="confirm-password-error-field" class="error-field">Please enter valid username</div>
                     </div>
                 </div>
                 <button type="submit" class="btn">Submit</button>

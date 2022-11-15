@@ -44,9 +44,6 @@ if(count($errors) === 0){
             $errors[] = 8; // error when trying to insert user
         }
     }
-
-
-    // add user
 }
 
 
