@@ -1,7 +1,14 @@
 <?php
+//Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+
 $base_dir = $_SERVER["DOCUMENT_ROOT"] . "/projects/My Gallery/";
 // importing necessary files
 require_once(realpath($base_dir . "/core/config.php"));
+
 
 /**
  * function to has a password, applies the password_hash function on the password
@@ -100,4 +107,41 @@ function validatePasswordFormat($password)
 {
     $pattern = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~\\-\\s=+_!@#$%\\^,.\\\])(?=.{8,})/";
     return preg_match($pattern, $password);
+}
+
+
+/**
+ * function to send main
+ * @param string $email
+ * @return none
+ */
+function sendMail($to, $to_name, $subject, $msg)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host       = SMTP_HOST;
+        $mail->SMTPAuth   = true;
+        $mail->Username   = SMTP_USERNAME;
+        $mail->Password   = SMTP_PASSWORD;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
+
+        //Recipients
+        $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
+        $mail->addAddress($to, $to_name);
+
+
+        //Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $msg;
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
 }

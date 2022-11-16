@@ -14,3 +14,11 @@ define("DB_NAME", "my_gallery");
 // SECURITY CONSTANTS
 define("CSRF_TOKEN_KEY", "ldfjldkjfd");
 define("SEPARATOR", "|-~-|");
+define("MAX_VERIFICATION_ATTEMPTS", 5);
+
+//EMAIL SERVER CONSTANTS
+define("SMTP_HOST", "smtp.gmail.com");
+define("SMTP_USERNAME", "e.hokage777@gmail.com");
+define("SMTP_PASSWORD", "nuzqcfzvlrxdjerv");
+define("SMTP_FROM", "e.hokage777@gmail.com");
+define("SMTP_FROM_NAME", "The Host");
