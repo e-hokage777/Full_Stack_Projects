@@ -1,0 +1,45 @@
+.loader_half_circles{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(14, 13, 13, 0.7);
+    color: white;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    z-index: 100;
+}
+
+.loader_half_circles::before, .loader_half_circles::after{
+    content: "";
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-left: solid transparent;
+    border-right: solid transparent;
+    border-radius: 50%;
+    animation: rotate 2s linear infinite;
+}
+
+.loader_half_circles::before{
+    border-top: solid white;
+}
+
+.loader_half_circles::after{
+    border-bottom: solid white;
+}
+
+@keyframes rotate{
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

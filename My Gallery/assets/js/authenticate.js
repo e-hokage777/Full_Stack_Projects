@@ -1,15 +1,19 @@
 /** This script handles user authentication **/
 
 // SELECTORS
-const signupForm = document.querySelector("#signup-form");
-const loginForm = document.querySelector("#login-form");
+const signupForm = document.getElementById("signup-form");
+const loginForm = document.getElementById("login-form");
+const verificationForm = document.getElementById("verification-form");
 
 // EVENT LISTENERS
 if (signupForm) {
   signupForm.addEventListener("submit", register);
 }
 if (loginForm) {
-  signupForm.addEventListener("submit", login);
+  loginForm.addEventListener("submit", login);
+}
+if(verificationForm){
+  verificationForm.addEventListener("submit", sendVerificationEmail);
 }
 
 /**
@@ -22,7 +26,7 @@ function register(event) {
   request("../authenticate/register_user.php", formData, function (response) {
     removeMessages(); // removing all messages
     response = JSON.parse(response);
-    if (response.length) {
+    if (response.length !== 0) {
       response.forEach(function (errorCode) {
         warn(errorCode);
       });
@@ -86,7 +90,7 @@ function warn(errorCode) {
       errorFieldId = "general-error";
   }
 
-  displayError(message, errorFieldId, formField);
+  displayError(message, errorFieldId);
   formInputShake(formField);
 }
 
@@ -96,7 +100,7 @@ function warn(errorCode) {
  * @param string id the id of the element to display errors message in
  * @param string inputField the input field where the error occured
  */
-function displayError(message, id, inputField) {
+function displayError(message, id) {
   let errorField = document.getElementById(id);
   errorField.innerText = message;
   errorField.style.display = "block";
@@ -136,4 +140,74 @@ function removeMessages() {
  */
 function displaySuccessMessage(selector) {
   document.querySelector(selector).style.display = "block";
+}
+
+/**
+ * function to send verification email to user's email account
+ * @param event|sumbit_event
+ * @return null
+ */
+function sendVerificationEmail(event){
+  event.preventDefault();
+  let formData = new FormData(event.target);
+  request("../authenticate/verify_user.php", formData, function (response) {
+    removeMessages(); // removing all messages
+    console.log(response);
+    response = JSON.parse(response);
+    if (response !== 0) {
+        verification_warn(response);
+    } else {
+      displaySuccessMessage(".success-field");
+    }
+  });
+}
+
+/**
+ * function to return warnings when trying to send verification email
+ * @param errorcode a warning error code
+ * @return null
+ */
+function verification_warn(errorCode){
+  let errorFieldId = null;
+  let message = null;
+
+
+  switch (errorCode) {
+    case 1:
+      message = "Invalid CSRF token";
+      errorFieldId = "general-error";
+      break;
+    case 2:
+      message = "Please enter a valid email address";
+      errorFieldId = "general-error";
+      break;
+    case 3:
+      message = "No such email address exists";
+      errorFieldId = "general-error";
+      break;
+    case 4:
+      message = "Account is already active";
+      errorFieldId = "general-error";
+      break;
+    case 5:
+      message =
+        "Maximum limit for account verification requests per day reached, Please try again after 24 hours";
+      errorFieldId = "general-error";
+      break;
+    case 6:
+      message =
+        "Error making request, please contact support";
+      errorFieldId = "general-error";
+      break;
+    case 7:
+      message =
+        "Error sending verification email to email account, please contact support";
+      errorFieldId = "general-error";
+      break;
+    default:
+      message = "An unexpected error occured, please contact support";
+      errorFieldId = "general-error";
+  }
+
+  displayError(message, errorFieldId);
 }

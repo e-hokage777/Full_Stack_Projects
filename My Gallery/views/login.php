@@ -6,57 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/general.css">
+    <link rel="stylesheet" href="../assets/css/form_page.css">
     <title>My Gallery - Home</title>
-    <style>
-        .main-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        form {
-            border: solid white 1px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 2rem;
-            width: 400px;
-            height: 500px;
-            backdrop-filter: blur(5px);
-            border-top-left-radius: 100px;
-            border-bottom-right-radius: 100px;
-        }
-
-        form h1 {
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: white;
-        }
-
-        form .inputs {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-evenly;
-        }
-
-        form .inputs input {
-            border: none;
-            border-bottom: solid #3B9DCF 1px;
-            background-color: transparent;
-            outline: none;
-            text-align: center;
-            font-size: 1.1rem;
-            width: 100%;
-        }
-
-        form button{
-            margin: auto;
-            color: #69EB7F !important;
-            border-color: #69EB7F !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -74,6 +25,7 @@
                 <h1>Login</h1>
                 <div class="inputs">
                     <div>
+                        <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
                         <input type="text" name="email" placeholder="Email">
                     </div>
                     <div>

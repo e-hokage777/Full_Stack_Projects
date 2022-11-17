@@ -43,6 +43,7 @@ class db_class
         $stmt->close();
     }
 
+    // function to get from the database
     function get($query, $format, ...$values){
         $stmt = $this->conn->prepare($query);
 
@@ -59,5 +60,21 @@ class db_class
 
         $stmt->free_result();
         $stmt->close();
+    }
+
+    // general query function
+    function makeQuery($query, $format, ...$values){
+        $stmt = $this->conn->prepare($query);
+
+        if($format){
+            $stmt->bind_param($format, ...$values);
+        }
+
+        if($stmt->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

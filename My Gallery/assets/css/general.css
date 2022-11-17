@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url("full_screen_loader.css");
 
 :root {
   --bg-linear-gradient: linear-gradient(to bottom, #4f8f9f, 20%, #d9e4e6);

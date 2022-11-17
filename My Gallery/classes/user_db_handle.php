@@ -18,7 +18,7 @@ class user_db_handle extends db_class{
         $password = hashPassword($password);
 
         // creating query and format
-        $query = "INSERT INTO users VALUES (NULL, ?, ?, ?)";
+        $query = "INSERT INTO users VALUES (NULL, ?, ?, ?, 0)";
         $format = "sss";
 
         $result = $this->insert($query, $format, $username, $email, $password);
@@ -53,5 +53,18 @@ class user_db_handle extends db_class{
         }
 
         return true; // true returned if there was an error quering the database
+    }
+
+    /**
+     * function to verify user
+     * @param int id the id of the request
+     * @return bool true on success, false otherwise
+     */
+    function activateUserAccount($id){
+        $query = "UPDATE users SET active = 1 WHERE id = ?";
+
+        $res = $this->makeQuery($query, "i", $id);
+
+        return $res;
     }
 }

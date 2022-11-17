@@ -11,8 +11,9 @@ require_once("../core/general_functions.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/general.css">
+    <link rel="stylesheet" href="../assets/css/form_page.css">
     <title>My Gallery - Register</title>
-    <style>
+    <!-- <style>
         .main-container {
             display: flex;
             justify-content: center;
@@ -61,7 +62,7 @@ require_once("../core/general_functions.php");
             color: #69EB7F !important;
             border-color: #69EB7F !important;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
