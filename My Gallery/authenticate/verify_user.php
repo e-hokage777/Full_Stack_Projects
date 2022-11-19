@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $root_dir = $_SERVER["DOCUMENT_ROOT"] . "/projects/My Gallery";
 require_once($root_dir . "/vendor/autoload.php");
@@ -53,21 +52,20 @@ function sendVerificationEmail($email)
     }
 }
 
-if(isset($_POST["csrf_token"]) && validateCsrfToken($_POST["csrf_token"])){
-    if(isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-        $result = sendVerificationEmail($_POST["email"]);
-        if($result === 0){
-            echo $result;
+if (isset($_POST["form-type"]) && $_POST["form-type"] === "verification-form") {
+    session_start();
+    if (isset($_POST["csrf_token"]) && validateCsrfToken($_POST["csrf_token"])) {
+        if (isset($_POST["email"]) && filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+            $result = sendVerificationEmail($_POST["email"]);
+            if ($result === 0) {
+                echo $result;
+            } else {
+                echo $result + 2;
+            }
+        } else {
+            echo 2;
         }
-        else{
-            echo $result + 2;
-        }
-    }
-    else{
-        echo 2;
+    } else {
+        echo 1;
     }
 }
-else{
-    echo 1;
-}
-

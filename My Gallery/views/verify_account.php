@@ -6,33 +6,37 @@ $root_dir = $_SERVER["DOCUMENT_ROOT"] . "/projects/My Gallery";
 require_once($root_dir . "/core/general_functions.php");
 require_once($root_dir . "/classes/user_db_handle.php");
 
-$verified = false;
+$just_verified = false;
 $error_msg = "";
 
 if (isset($_GET["requestId"]) && isset($_GET["requestPass"])) {
     // getting request data from database
     $user_db_handle = new user_db_handle();
 
-    $query = "SELECT * FROM verification_requests WHERE id = ?";
+    $query = "SELECT verification_requests.id, verification_requests.user , active, hash, timestamp from users JOIN verification_requests on users.id = verification_requests.user WHERE verification_requests.id = ?";
     $result = $user_db_handle->get($query, "i", $_GET["requestId"]);
 
     if ($result && $result->num_rows === 1) {
         $request = $result->fetch_assoc();
         if (time() - $request["timestamp"] < (60 * 60 * 24)) {
+            if ($request["active"] === 0) {
+                // verifying request hash
+                $hashInDB  = $request["hash"];
 
-            // verifying request hash
-            $hashInDB  = $request["hash"];
+                if (hash_equals($hashInDB, $_GET["requestPass"])) {
 
-            if (hash_equals($hashInDB, $_GET["requestPass"])) {
-
-                // verifying the user
-                if ($user_db_handle->activateUserAccount($request["id"])) {
-                    $verified = true;
+                    // verifying the user
+                    if ($user_db_handle->activateUserAccount($request["user"])) {
+                        $just_verified = true;
+                    } else {
+                        $error_msg = "An unexpected error occured: Account counld note be verified";
+                    }
                 } else {
-                    $error_msg = "An unexpected error occured: Account counld note be verified";
+                    $error_msg = "Invalid Verification request";
                 }
             } else {
-                $error_msg = "Invalid Verification request";
+                $error_msg = "Account already verified";
+                $just_verified = false;
             }
         } else {
             $error_msg = "Verification request has expired";
@@ -54,10 +58,16 @@ if (isset($_GET["requestId"]) && isset($_GET["requestPass"])) {
     <link rel="stylesheet" href="../assets/css/general.css">
     <link rel="stylesheet" href="../assets/css/form_page.css">
     <title>My Gallery - Send Verification Email</title>
+    <style>
+        .main-container{
+            flex-direction: column;
+            gap: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <?php if (!$verified) { ?>
+    <?php if (!$just_verified) { ?>
         <div class="wrapper">
             <div class="main-container">
                 <header>
@@ -82,6 +92,7 @@ if (isset($_GET["requestId"]) && isset($_GET["requestPass"])) {
                     <div id="general-error" class="error-field">An unexpected error occured</div>
                     <div class="inputs">
                         <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
+                        <input type="hidden" name="form-type" value="verification-form">
                         <div>
                             <input type="text" name="email" placeholder="Email">
                         </div>
@@ -94,7 +105,7 @@ if (isset($_GET["requestId"]) && isset($_GET["requestPass"])) {
         </div>
     <?php
     } else {
-        echo "<h1>Account already Active</h1>";
+        echo "<h1>Account Verified</h1>";
     }
     ?>
     <script src="../assets/js/general.js"></script>
