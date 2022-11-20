@@ -61,6 +61,7 @@ body{
     flex-direction: column;
     border-radius: 10px;
     cursor: pointer;
+    transition: all 0.5s;
     overflow: hidden;
 }
 
@@ -86,6 +87,11 @@ body{
     height: 0;
     overflow: hidden;
     transition: all 0.5s;
+}
+
+.gallery-card-inner:hover{
+    border: solid rgb(15, 166, 243, 0.51);
+    box-shadow: 1px 1px 20px 10px rgb(15, 166, 243, 0.51);
 }
 
 .gallery-card-inner:hover .art-desc{
