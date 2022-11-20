@@ -6,6 +6,8 @@
   --wave1-color: #6a95ab;
   --wave2-color: rgb(15, 166, 243, 0.51);
   --main-font-family: 'Roboto', sans-serif;
+  --font-color-primary: black;
+  --font-color-secondary: rgb(15, 166, 243, 0.51);
 }
 
 * {
@@ -19,6 +21,26 @@ body {
   position: relative;
   background-image: var(--bg-linear-gradient);
   font-family: var(--main-font-family);
+}
+
+/** scrollbar styles **/
+::-webkit-scrollbar{
+  width: 5px;
+}
+
+::-webkit-scrollbar-track{
+  background-color: var(--font-color-secondary);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black; 
+  border-radius: 20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #888;
 }
 
 

@@ -1,0 +1,93 @@
+body{
+    background-image: none;
+    background-color: black;
+}
+/** styles for more container **/
+.main-container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/** styles for header **/
+.nav-header{
+    background-color:white;
+}
+
+.main-container header .buttons{
+    gap: 2rem;
+}
+
+.header-button{
+    border: none;
+    background-color: transparent;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.header-button:hover{
+    color: var(--font-color-secondary);
+}
+
+/** styles for gallery container **/
+.gallery-container .row{
+    margin: 0;
+}
+
+.gallery-container{
+    height: 70vh;
+    width: 90%;
+    backdrop-filter: blur(0.5rem);
+    border: solid white 1px;
+    margin-bottom: 3rem;
+    border-radius: 2rem;
+    padding: 1rem;
+    
+}
+
+.gallery-container-inner{
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* .gallery-card{
+    height: 300px;
+} */
+
+.gallery-card-inner{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.gallery-img-container{
+    flex: 1;
+    height: 70%;
+    flex-basis: auto;
+}
+
+
+.gallery-img-container img{
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-card .art-desc{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0rem 0.5rem;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+.gallery-card-inner:hover .art-desc{
+    height: 100px;
+}

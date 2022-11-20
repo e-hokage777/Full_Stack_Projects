@@ -252,13 +252,13 @@ function login(event) {
   let formData = new FormData(event.target);
   request("../authenticate/log_user_in.php", formData, (response) => {
     removeMessages();
-    console.log(response);
     response = JSON.parse(response);
 
     if (response.length !== 0) {
       login_warn(response);
     } else {
       displaySuccessMessage(".success-field");
+      window.location.assign("./homepage.php");
     }
   });
 }
