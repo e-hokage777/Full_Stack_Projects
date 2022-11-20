@@ -29,12 +29,12 @@ body {
 }
 
 ::-webkit-scrollbar-track{
-  background-color: var(--font-color-secondary);
+  background-color: transparent;
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: black; 
+  background: var(--font-color-secondary); 
   border-radius: 20px;
 
 }
