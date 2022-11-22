@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("full_screen_loader.css");
 
 :root {
   --bg-linear-gradient: linear-gradient(to bottom, #4f8f9f, 20%, #d9e4e6);
   --wave1-color: #6a95ab;
   --wave2-color: rgb(15, 166, 243, 0.51);
-  --main-font-family: 'Roboto', sans-serif;
+  --main-font-family: "Roboto", sans-serif;
   --font-color-primary: black;
   --font-color-secondary: rgb(15, 166, 243);
+  --green: rgb(49, 206, 146);
 }
 
 * {
@@ -23,44 +24,47 @@ body {
   font-family: var(--main-font-family);
 }
 
+i,
+svg {
+  pointer-events: none;
+}
+
 /** scrollbar styles **/
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 5px;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background-color: transparent;
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--font-color-secondary); 
+  background: var(--font-color-secondary);
   border-radius: 20px;
-
 }
 
-::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover {
   background: #888;
 }
 
-
 /** styles for buttons **/
-.btn{
-    background-color: transparent;
-    border: solid white 1px;
-    color: white;
-    font-size: 1.2rem;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    width: 100px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
+.btn {
+  background-color: transparent;
+  border: solid white 1px;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.btn:hover{
-    background-color: white;
-    color: black;
+.btn:hover {
+  background-color: white;
+  color: black;
 }
 
 /** styles for background **/
@@ -74,99 +78,129 @@ body {
   height: 100%;
 }
 
-.main-container{
-    z-index: 10;
-    overflow: auto;
+.main-container {
+  z-index: 10;
+  overflow: auto;
 }
 
-.wave1, .wave2{
+.wave1,
+.wave2 {
   background-image: url("../images/background/wave_w.png");
   background-repeat: repeat-x;
   background-position: left bottom;
   background-size: 1000px 120px;
 }
 
-.wave1{
-    animation: wave1 15s linear infinite;
-    opacity: 0.51;
+.wave1 {
+  animation: wave1 15s linear infinite;
+  opacity: 0.51;
 }
 
-.wave2{
+.wave2 {
   animation: wave2 10s linear infinite;
 }
 
-@keyframes wave2{
-    from{ background-position-x: 0;}
-    to{ background-position-x: -1000px;}
+@keyframes wave2 {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -1000px;
+  }
 }
-@keyframes wave1{
-    from{ background-position-x: 0;}
-    to{ background-position-x: 1000px;}
+@keyframes wave1 {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 1000px;
+  }
 }
-
 
 /** styles for header **/
-.main-container header{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 4rem;
-    position: absolute;
-    left: 0;
-    top: 0;
+.main-container header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 4rem;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
-.main-container header .buttons{
-    display: flex;
-    gap: 1rem;
+.main-container header .buttons {
+  display: flex;
+  gap: 1rem;
 }
 
-.main-container header .logo{
-    height: 70px;
-    width: 50px;
+.main-container header .logo {
+  height: 70px;
+  width: 50px;
 }
 
-.main-container header .logo img{
-    width: 100%;
-    height: 100%;
+.main-container header .logo img {
+  width: 100%;
+  height: 100%;
 }
 
 /*** General Form Styles ***/
-form .error-field, form .success-field{
+form .error-field,
+form .success-field {
   text-align: center;
   font-size: 0.8rem;
   display: none;
 }
 
-form .success-field{
+form .success-field {
   color: darkgreen;
 }
 
-form .error-field{
+form .error-field {
   color: darkred;
 }
 
-form .field-shake{
+form .field-shake {
   animation: form-input-shake 0.1s both alternate 4;
 }
 
-@keyframes form-input-shake{
-  0%{
+@keyframes form-input-shake {
+  0% {
     transform: translate(0px);
   }
-  25%{
+  25% {
     transform: translate(4px);
   }
-  50%{
+  50% {
     transform: translate(0px);
   }
-  75%{
+  75% {
     transform: translate(-4px);
   }
-  100%{
+  100% {
     transform: translate(0px);
   }
-  
 }
 
+
+/** styeles for full screen container **/
+.full-screen-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.full-screen-container.active{
+  opacity: 1;
+  pointer-events: all;
+}

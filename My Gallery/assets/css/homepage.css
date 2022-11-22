@@ -1,99 +1,181 @@
-body{
-    background-image: none;
-    background-color: black;
+body {
+  background-image: none;
+  background-color: black;
 }
 /** styles for more container **/
-.main-container{
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 /** styles for header **/
-.nav-header{
-    background-color:white;
+.nav-header {
+  background-color: white;
 }
 
-.main-container header .buttons{
-    gap: 2rem;
+.main-container header .buttons {
+  gap: 2rem;
 }
 
-.header-button{
-    border: none;
-    background-color: transparent;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: all 0.3s;
+.header-button {
+  border: none;
+  background-color: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.header-button:hover{
-    color: var(--font-color-secondary);
+.header-button:hover {
+  color: var(--font-color-secondary);
 }
 
 /** styles for gallery container **/
-.gallery-container .row{
-    margin: 0;
+.gallery-container .row {
+  margin: 0;
 }
 
-.gallery-container{
-    height: 70vh;
-    width: 90%;
-    backdrop-filter: blur(0.5rem);
-    border: solid white 1px;
-    margin-bottom: 3rem;
-    border-radius: 2rem;
-    padding: 1rem;
-    
+.gallery-container {
+  height: 70vh;
+  width: 90%;
+  backdrop-filter: blur(0.5rem);
+  border: solid white 1px;
+  margin-bottom: 3rem;
+  border-radius: 2rem;
+  padding: 1rem;
 }
 
-.gallery-container-inner{
-    height: 100%;
-    overflow-y: auto;
+.gallery-container-inner {
+  height: 100%;
+  overflow-y: auto;
 }
 
 /* .gallery-card{
     height: 300px;
 } */
 
-.gallery-card-inner{
-    height: 300px;
+.gallery-card-inner {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+  overflow: hidden;
+}
+
+.gallery-img-container {
+  flex: 1;
+  height: 70%;
+  flex-basis: auto;
+}
+
+.gallery-img-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-card .art-desc {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0rem 0.5rem;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+.gallery-card-inner:hover {
+  border: solid rgb(15, 166, 243, 0.51);
+  box-shadow: 1px 1px 20px 10px rgb(15, 166, 243, 0.51);
+}
+
+.gallery-card-inner:hover .art-desc {
+  height: 100px;
+}
+
+/** styles for user menu **/
+.user-menu,
+.gallery-menu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  clip-path: circle(0px at 100% -10%);
+  transition: all 0.5s linear;
+}
+
+.user-menu.open,
+.gallery-menu.open {
+  clip-path: circle(300vh at 100% -10%);
+}
+
+.user-menu .user-menu-links,
+.gallery-menu .gallery-menu-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 5px;
+}
+
+
+.menu-button {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  background-color: transparent;
+  letter-spacing: 5px;
+}
+
+.menu-button:hover {
+  color: var(--font-color-secondary);
+}
+
+.user-menu .close-user-menu,
+.gallery-menu .close-gallery-menu {
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  font-size: 3rem;
+  color: black;
+  background-color: transparent;
+  border: none;
+  padding: 0.2rem;
+}
+
+/** styles for gallery menu specifically **/
+#upload-form{
+    min-width: 400px;
+    min-height: 50%;
+    border: solid white;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.5s;
-    overflow: hidden;
-}
-
-.gallery-img-container{
-    flex: 1;
-    height: 70%;
-    flex-basis: auto;
-}
-
-
-.gallery-img-container img{
-    width: 100%;
-    height: 100%;
-}
-
-.gallery-card .art-desc{
-    background-color: white;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 0rem 0.5rem;
-    height: 0;
-    overflow: hidden;
-    transition: all 0.5s;
+    background-color: white;
+    padding: 3rem;
+}
+/* #upload-form */
+#upload-form > div{
+    margin: 0.5rem 0rem;
+    width: 100%;
+    
+}
+#upload-form input,
+#upload-form textarea{
+    width: 100%;
 }
 
-.gallery-card-inner:hover{
-    border: solid rgb(15, 166, 243, 0.51);
-    box-shadow: 1px 1px 20px 10px rgb(15, 166, 243, 0.51);
-}
-
-.gallery-card-inner:hover .art-desc{
-    height: 100px;
+#upload-form button[type="submit"]{
+    margin-top: 2rem;
+    background-color: var(--green);
 }

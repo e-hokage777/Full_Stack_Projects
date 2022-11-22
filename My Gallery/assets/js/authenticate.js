@@ -4,6 +4,7 @@
 const signupForm = document.getElementById("signup-form");
 const loginForm = document.getElementById("login-form");
 const verificationForm = document.getElementById("verification-form");
+const logoutForm = document.getElementById("logout-form");
 
 // EVENT LISTENERS
 if (signupForm) {
@@ -14,6 +15,9 @@ if (loginForm) {
 }
 if (verificationForm) {
   verificationForm.addEventListener("submit", sendVerificationEmail);
+}
+if (logoutForm) {
+  logoutForm.addEventListener("submit", logout);
 }
 
 /**
@@ -320,4 +324,17 @@ function login_warn(errorCodes) {
 
   formInputShake("input[name='email']");
   formInputShake("input[name='password']");
+}
+
+
+// function to logout
+function logout(event){
+  event.preventDefault();
+  let formData = new FormData(event.target);
+  request("../authenticate/log_user_out.php", formData, (response) => {
+    console.log(response);
+    if(parseInt(response) === 0){
+      window.location.assign("../index.php");
+    }
+  })
 }

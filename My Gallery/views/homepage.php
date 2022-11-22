@@ -4,6 +4,8 @@ session_start();
 // importing some necessary libraries
 $root_dir = $_SERVER["DOCUMENT_ROOT"] . "/projects/My Gallery";
 require_once($root_dir . "/classes/user_db_handle.php");
+require_once($root_dir . "/core/general_functions.php");
+
 
 
 if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SESSION["isUserLoggedIn"] === true)) {
@@ -44,10 +46,10 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                             <h1><?php echo $user["username"] . "'s" ?> gallery</h1>
                         </div>
                         <div class="buttons">
-                            <button class="header-button">
+                            <button id="user-button" class="header-button">
                                 <i class="fa-solid fa-circle-user"></i>
                             </button>
-                            <button class="header-button">
+                            <button id="gallery-menu-button" class="header-button">
                                 <i class="fa-solid fa-bars"></i>
                             </button>
                         </div>
@@ -82,11 +84,54 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                             </div>
                         </div>
                     </div>
+                    <div class="user-menu">
+                        <button class="close-user-menu">X</button>
+                        <ul class="user-menu-links">
+                            <li>
+                                <form id="logout-form" method="post">
+                                    <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
+                                    <input class="menu-button" type="submit" value="Logout">
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="gallery-menu">
+                        <button class="close-gallery-menu">X</button>
+                        <ul class="gallery-menu-links">
+                            <li>
+                                <button class="menu-button add-to-gallery">Add to Gallery</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- form for uploading -->
+                    <div class="full-screen-container">
+                        <form id="upload-form">
+                            <h1>Add to Gallery</h1>
+                            <div id="login-success" class="success-field">
+                                New item added to gallery successfully
+                            </div>
+                            <div id="general-error" class="error-field">An unexpected error occured</div>
+                            <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>" />
+                            <div>
+                                <input type="text" name="title" placeholder="Title">
+                                <div id="email-error-field" class="error-field">Please enter a title</div>
+                            </div>
+                            <div>
+                                <textarea name="info" id="gallery-item-info" cols="30" rows="10" placeholder="Say something about your art"></textarea>
+                            </div>
+                            <div>
+                                <input type="file" name="gallery-file" id="gallery-file-input">
+                            </div>
+                            <button type="submit" class="btn">Submit</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="wave1"></div>
                 <div class="wave2"></div>
             </div>
-            <script src="assets/js/general.js"></script>
+            <script src="../assets/js/general.js"></script>
+            <script src="../assets/js/authenticate.js"></script>
+            <script src="../assets/js/homepage.js"></script>
 
         </body>
 

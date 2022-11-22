@@ -16,3 +16,15 @@ function request(url, data, callback, method="post"){
     }
     xttp.send(data);
 }
+
+
+
+/**************************************** COMPONENT SPECIFIC STYLES  ******************************************/
+// SELECTORS
+const fullScreenContainer = document.querySelector(".full-screen-container");
+
+
+// EVENT LISTENERS
+fullScreenContainer.addEventListener("click", function(event){
+    this.classList.remove("active");
+});
