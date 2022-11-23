@@ -107,6 +107,7 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                     <div class="full-screen-container">
                         <form id="upload-form">
                             <h1>Add to Gallery</h1>
+                            <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
                             <div id="login-success" class="success-field">
                                 New item added to gallery successfully
                             </div>
@@ -120,7 +121,7 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                                 <textarea name="info" id="gallery-item-info" cols="30" rows="10" placeholder="Say something about your art"></textarea>
                             </div>
                             <div>
-                                <input type="file" name="gallery-file" id="gallery-file-input">
+                                <input type="file" name="gallery-file" id="gallery-file-input" accept=".png, .jpeg, .jpg">
                             </div>
                             <button type="submit" class="btn">Submit</button>
                         </form>

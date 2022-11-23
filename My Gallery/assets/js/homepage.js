@@ -10,6 +10,9 @@ const galleryMenu = document.querySelector(".gallery-menu");
 const galleryMenuCloseButton = document.querySelector(".close-gallery-menu");
 const addToGalleryButton = document.querySelector(".add-to-gallery");
 
+// add to gallery form
+const addToGalleryForm = document.getElementById("upload-form");
+
 
 
 // *********************** EVENT LISTENERS ***********************//
@@ -21,6 +24,11 @@ closeUserMenuButton.addEventListener("click", closeUserMenu);
 galleryMenuButton.addEventListener("click", openGalleryMenu);
 galleryMenuCloseButton.addEventListener("click", closeGalleryMenu);
 addToGalleryButton.addEventListener("click", showUploadForm);
+
+// add to gallery form event listener
+addToGalleryForm.addEventListener("submit", addToGallery);
+// stopping the click event from propagating to element's container
+addToGalleryForm.addEventListener("click", (event) => {event.stopPropagation();});
 
 
 
@@ -43,4 +51,13 @@ function closeGalleryMenu(event){
 }
 function showUploadForm(event){
     document.querySelector(".full-screen-container").classList.add("active");
+}
+
+// function to upload to gallery
+function addToGallery(event){
+    event.preventDefault();
+    let formData = new FormData(event.target);
+    request("../user_operations/add_to_gallery.php", formData, (response) => {
+        console.log(response);
+    })
 }
