@@ -8,7 +8,6 @@ require_once($root_dir . "/core/config.php");
 require_once($root_dir . "/core/general_functions.php");
 require_once($root_dir . "/classes/user_db_handle.php");
 
-print_r($_FILES);
 $errors = [];
 
 if (isset($_POST["csrf_token"]) && validateCsrfToken($_POST["csrf_token"])) {
@@ -22,7 +21,7 @@ if (isset($_POST["csrf_token"]) && validateCsrfToken($_POST["csrf_token"])) {
                 if (checkFileType($file, "image/jpeg", "image/png")) {
                     // get user name from database
                     $user_db_handle = new user_db_handle();
-                    $user = $user_db_handle->get("SELECT username FROM users WHERE id = ?", "i", $_SESSION["userId"]);
+                    $user = $user_db_handle->get("SELECT id, username FROM users WHERE id = ?", "i", $_SESSION["userId"]);
 
                     if ($user && $user->num_rows === 1) {
                         $user = $user->fetch_assoc();
@@ -34,14 +33,22 @@ if (isset($_POST["csrf_token"]) && validateCsrfToken($_POST["csrf_token"])) {
                         }
 
                         // saving file to the directory
-                        if(move_uploaded_file($file["tmp_name"], $target_dir . "/" .basename($file["name"]))){
+                        if (move_uploaded_file($file["tmp_name"], $target_dir . "/" . basename($file["name"]))) {
                             // create entry in database
-                        }
-                        else{
-                            $errors[] = 7;
-                            echo "file not uploaded";
-                        }
+                            $upload_res = $user_db_handle->uploadArt(
+                                $user["id"],
+                                isset($_POST["title"]) ? $_POST["title"] : "",
+                                isset($_POST["info"]) ? $_POST["info"] : "",
+                                basename($file["name"]),
+                                $target_dir
+                            );
 
+                            if (!$upload_res) {
+                                $errors[] = 8; // error saving art information into database
+                            }
+                        } else {
+                            $errors[] = 7;
+                        }
                     } else {
                         $errors[] = 6; // no such user exists
                     }

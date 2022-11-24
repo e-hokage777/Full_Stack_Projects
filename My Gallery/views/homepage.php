@@ -19,6 +19,12 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
         echo "Error fetching user from database";
     } else {
         $user = $res->fetch_assoc();
+
+        $user_art = $user_db_handle->get("SELECT * FROM uploads WHERE user = ?", "i", $_SESSION["userId"]);
+
+        if (!$user_art) {
+            echo "Error fetching user art";
+        }
 ?>
 
         <!DOCTYPE html>
@@ -57,30 +63,47 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                     <div class="gallery-container">
                         <div class="gallery-container-inner">
                             <div class="row">
-                                <div class="gallery-card col-lg-6 p-5">
+                                <!-- <div class="gallery-card col-lg-6 p-5">
                                     <div class="gallery-card-inner">
                                         <div class="gallery-img-container">
                                             <img src="../img.jpg" alt="">
                                         </div>
-                                        <div class="art-desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, a.</div>
-                                    </div>
-                                </div>
-                                <div class="gallery-card col-lg-6 p-5">
-                                    <div class="gallery-card-inner">
-                                        <div class="gallery-img-container">
-                                            <img src="../img.jpg" alt="">
+                                        <h4 class="art-title">Title</h4>
+                                        <div class="art-desc">
+                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, a.</p>
                                         </div>
-                                        <div class="art-desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, a.</div>
                                     </div>
-                                </div>
-                                <div class="gallery-card col-lg-6 p-5">
-                                    <div class="gallery-card-inner">
-                                        <div class="gallery-img-container">
-                                            <img src="../img.jpg" alt="">
-                                        </div>
-                                        <div class="art-desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, a.</div>
-                                    </div>
-                                </div>
+                                </div> -->
+                                <?php
+                                if ($user_art->num_rows > 0) {
+
+                                    while ($art = $user_art->fetch_assoc()) {
+                                        $art_title = $art["title"];
+                                        $art_description = $art["description"];
+                                        $art_name = $art["name"];
+                                        $art_location = $art["location"];
+
+                                        $username = $user["username"];
+                                        
+
+                                        // checking if title and description were given
+                                        $art_title = $art_title ? $art_title : $user["username"] . "'s Art";
+                                        $art_description = $art_description ? $art_description : "Art created by " . $user["username"];
+
+                                        echo "  <div class='gallery-card col-lg-6 p-5'>
+                                                    <div class='gallery-card-inner'>
+                                                        <div class='gallery-img-container'>
+                                                            <img src='../uploads/$username/$art_name' alt='$art_title'>
+                                                        </div>
+                                                        <h4 class='art-title'>$art_title</h4>
+                                                        <div class='art-desc'>$art_description</div>
+                                                    </div>
+                                                </div>";
+                                    }
+                                } else {
+                                    echo "<h1 style='position: absolute; top: 50%; left: 0; width: 100%; text-align: center; color: white;'>You have no art in your gallery</h1>";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -108,7 +131,7 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                         <form id="upload-form">
                             <h1>Add to Gallery</h1>
                             <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
-                            <div id="login-success" class="success-field">
+                            <div id="upload-success" class="success-field">
                                 New item added to gallery successfully
                             </div>
                             <div id="general-error" class="error-field">An unexpected error occured</div>

@@ -67,4 +67,26 @@ class user_db_handle extends db_class{
 
         return $res;
     }
+
+    /**
+     * function to insert upload details into database
+     * @param int $id the user's id
+     * @param string $title title of the art
+     * @param string $description description about the art
+     * @param string $location where the art should be stored in file truee
+     * @param string $time_uploaded when the art was uploaded
+     */
+    function uploadArt($id, $title, $description, $name, $location){
+        $query = "INSERT INTO uploads (user, title, description, name, location) VALUES (?, ?, ?, ?, ?)";
+        $format = "issss";
+
+        $insert_id = $this->insert($query, $format, $id, $title, $description, $name, $location);
+
+        if($insert_id){
+            return $insert_id;
+        }
+        else{
+            return false;
+        }
+    }
 }

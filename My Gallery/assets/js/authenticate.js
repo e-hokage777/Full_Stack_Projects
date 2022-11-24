@@ -123,22 +123,22 @@ function warn(errorCode) {
   }
 }
 
-/**
- * function to display errors to user
- * @param string message the error message
- * @param string id the id of the element to display errors message in
- * @param string inputField the input field where the error occured
- */
-function displayError(message, id, html = false) {
-  let errorField = document.getElementById(id);
-  if (html) {
-    errorField.innerHTML = message;
-  } else {
-    errorField.innerText = message;
-  }
+// /**
+//  * function to display errors to user
+//  * @param string message the error message
+//  * @param string id the id of the element to display errors message in
+//  * @param string inputField the input field where the error occured
+//  */
+// function displayError(message, id, html = false) {
+//   let errorField = document.getElementById(id);
+//   if (html) {
+//     errorField.innerHTML = message;
+//   } else {
+//     errorField.innerText = message;
+//   }
 
-  errorField.style.display = "block";
-}
+//   errorField.style.display = "block";
+// }
 
 /**
  * function to shake form input field with error
@@ -154,29 +154,29 @@ function formInputShake(selector) {
     });
 }
 
-/**
- * function to remove all messages and shaking class from form input fields
- * @return null
- */
-function removeMessages() {
-  let errorFields = document.querySelectorAll(".error-field");
-  errorFields.forEach(function (errorField) {
-    errorField.style.display = "none";
-  });
+// /**
+//  * function to remove all messages and shaking class from form input fields
+//  * @return null
+//  */
+// function removeMessages() {
+//   let errorFields = document.querySelectorAll(".error-field");
+//   errorFields.forEach(function (errorField) {
+//     errorField.style.display = "none";
+//   });
 
-  document.querySelectorAll(".success-field").forEach(function (element) {
-    element.style.display = "none";
-  });
-}
+//   document.querySelectorAll(".success-field").forEach(function (element) {
+//     element.style.display = "none";
+//   });
+// }
 
-/**
- * function to display success message
- * @param string selector. Selector for element that displays success message
- * @return null
- */
-function displaySuccessMessage(selector) {
-  document.querySelector(selector).style.display = "block";
-}
+// /**
+//  * function to display success message
+//  * @param string selector. Selector for element that displays success message
+//  * @return null
+//  */
+// function displaySuccessMessage(selector) {
+//   document.querySelector(selector).style.display = "block";
+// }
 
 /**
  * function to send verification email to user's email account
