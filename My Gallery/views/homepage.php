@@ -78,6 +78,7 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                                 if ($user_art->num_rows > 0) {
 
                                     while ($art = $user_art->fetch_assoc()) {
+                                        $art_id = $art["id"];
                                         $art_title = $art["title"];
                                         $art_description = $art["description"];
                                         $art_name = $art["name"];
@@ -90,6 +91,9 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                                         $art_title = $art_title ? $art_title : $user["username"] . "'s Art";
                                         $art_description = $art_description ? $art_description : "Art created by " . $user["username"];
 
+                                        // csrf token
+                                        $token = createCsrfToken();
+
                                         echo "  <div class='gallery-card col-lg-6 p-5'>
                                                     <div class='gallery-card-inner'>
                                                         <div class='gallery-img-container'>
@@ -97,6 +101,11 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                                                         </div>
                                                         <h4 class='art-title'>$art_title</h4>
                                                         <div class='art-desc'>$art_description</div>
+                                                        <form class='gallery-item-delete-form' method='post'>
+                                                            <input type='hidden' name='csrf_token' value='$token'>
+                                                            <input type='hidden' name='item-id' value='$art_id'>
+                                                            <button type='submit' class='gallery-item-delete'><i class='fa-solid fa-trash'></i></button>
+                                                    </form>
                                                     </div>
                                                 </div>";
                                     }
@@ -114,6 +123,12 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                                 <form id="logout-form" method="post">
                                     <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
                                     <input class="menu-button" type="submit" value="Logout">
+                                </form>
+                            </li>
+                            <li>
+                                <form id="delete-account-form" method="post">
+                                    <input type="hidden" name="csrf_token" value="<?php echo createCsrfToken() ?>">
+                                    <input class="menu-button" type="submit" value="Delete Account">
                                 </form>
                             </li>
                         </ul>

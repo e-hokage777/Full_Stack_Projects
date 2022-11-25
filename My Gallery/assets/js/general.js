@@ -48,7 +48,7 @@ function displayError(message, id, html = false) {
  * function to remove all messages and shaking class from form input fields
  * @return null
  */
- function removeMessages() {
+function removeMessages() {
   let errorFields = document.querySelectorAll(".error-field");
   errorFields.forEach(function (errorField) {
     errorField.style.display = "none";
@@ -64,6 +64,8 @@ function displayError(message, id, html = false) {
 const fullScreenContainer = document.querySelector(".full-screen-container");
 
 // EVENT LISTENERS
-fullScreenContainer.addEventListener("click", function (event) {
-  this.classList.remove("active");
-});
+if (fullScreenContainer) {
+  fullScreenContainer.addEventListener("click", function (event) {
+    this.classList.remove("active");
+  });
+}

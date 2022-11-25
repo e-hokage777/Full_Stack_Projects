@@ -3,6 +3,7 @@
 const userButton = document.getElementById("user-button");
 const closeUserMenuButton = document.querySelector(".close-user-menu");
 const userMenu = document.querySelector(".user-menu");
+const itemDeleteForms = document.querySelectorAll(".gallery-item-delete-form");
 
 // gallery menu selectors
 const galleryMenuButton = document.getElementById("gallery-menu-button");
@@ -29,6 +30,11 @@ addToGalleryButton.addEventListener("click", showUploadForm);
 addToGalleryForm.addEventListener("submit", addToGallery);
 // stopping the click event from propagating to element's container
 addToGalleryForm.addEventListener("click", (event) => {event.stopPropagation();});
+
+// adding event listeners to item delete forms
+itemDeleteForms.forEach(function(form){
+  form.addEventListener("submit", deleteGalleryItem);
+});
 
 
 
@@ -69,6 +75,7 @@ function addToGallery(event){
         }
         else{
             displaySuccessMessage(".success-field");
+            window.location.reload();
         }
     })
 }
@@ -126,3 +133,20 @@ function addToGallery(event){
     displayError(message, errorFieldId);
   }
 
+
+/**
+ * function to delete gallery item
+ * @return null
+ */
+function deleteGalleryItem(event){
+  event.preventDefault();
+  let formData = new FormData(event.target);
+  request("../user_operations/delete_gallery_item.php", formData, (response)=>{
+    console.log(response);
+    response = parseInt(response);
+
+    if(response === 0){
+      window.location.reload();
+    }
+  });
+}

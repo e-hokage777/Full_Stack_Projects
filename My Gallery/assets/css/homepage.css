@@ -50,9 +50,6 @@ body {
   overflow-y: auto;
 }
 
-/* .gallery-card{
-    height: 300px;
-} */
 
 .gallery-card-inner {
   height: 300px;
@@ -108,6 +105,20 @@ body {
   height: 100px;
 }
 
+.gallery-card .gallery-item-delete-form{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1rem;
+}
+
+.gallery-card .gallery-item-delete-form button{
+  border: none;
+  background-color: transparent;
+  color: red;
+  cursor: pointer;
+}
+
 /** styles for user menu **/
 .user-menu,
 .gallery-menu {
@@ -136,6 +147,10 @@ body {
   margin: 0;
   font-size: 2rem;
   letter-spacing: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
 

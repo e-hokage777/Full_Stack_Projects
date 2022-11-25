@@ -5,6 +5,7 @@ const signupForm = document.getElementById("signup-form");
 const loginForm = document.getElementById("login-form");
 const verificationForm = document.getElementById("verification-form");
 const logoutForm = document.getElementById("logout-form");
+const deleteAccountForm = document.getElementById("delete-account-form");
 
 // EVENT LISTENERS
 if (signupForm) {
@@ -18,6 +19,9 @@ if (verificationForm) {
 }
 if (logoutForm) {
   logoutForm.addEventListener("submit", logout);
+}
+if(deleteAccountForm){
+  deleteAccountForm.addEventListener("submit", deleteAccount);
 }
 
 /**
@@ -337,4 +341,17 @@ function logout(event){
       window.location.assign("../index.php");
     }
   })
+}
+
+// function to delete account
+function deleteAccount(event){
+  event.preventDefault();
+  let formData = new FormData(event.target);
+  request("../authenticate/delete_account.php", formData, (response) => {
+    console.log(response);
+    response = parseInt(response);
+    if(response === 0){
+      window.location.assign("../index.php");
+    }
+  });
 }
