@@ -85,7 +85,7 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                                         $art_location = $art["location"];
 
                                         $username = $user["username"];
-                                        
+
 
                                         // checking if title and description were given
                                         $art_title = $art_title ? $art_title : $user["username"] . "'s Art";
@@ -164,6 +164,13 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                             <button type="submit" class="btn">Submit</button>
                         </form>
                     </div>
+                </div>
+                <div id="art-display">
+                    <div class="title">some title</div>
+                    <div class="art-display-inner">
+                        <img src="../uploads/test/699287.jpg">
+                    </div>
+                    <div class="desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae, labore.</div>
                 </div>
                 <div class="wave1"></div>
                 <div class="wave2"></div>

@@ -3,7 +3,6 @@
 const userButton = document.getElementById("user-button");
 const closeUserMenuButton = document.querySelector(".close-user-menu");
 const userMenu = document.querySelector(".user-menu");
-const itemDeleteForms = document.querySelectorAll(".gallery-item-delete-form");
 
 // gallery menu selectors
 const galleryMenuButton = document.getElementById("gallery-menu-button");
@@ -11,8 +10,17 @@ const galleryMenu = document.querySelector(".gallery-menu");
 const galleryMenuCloseButton = document.querySelector(".close-gallery-menu");
 const addToGalleryButton = document.querySelector(".add-to-gallery");
 
-// add to gallery form
+// gallery forms
 const addToGalleryForm = document.getElementById("upload-form");
+const itemDeleteForms = document.querySelectorAll(".gallery-item-delete-form");
+
+// gallery item selectors
+const galleryImgContainers = document.querySelectorAll(".gallery-img-container");
+
+// art display 
+const artDisplay = document.getElementById("art-display");
+
+
 
 
 
@@ -36,6 +44,18 @@ itemDeleteForms.forEach(function(form){
   form.addEventListener("submit", deleteGalleryItem);
 });
 
+
+// adding event listener to gallery image container
+galleryImgContainers.forEach(function(galleryImgContainer){
+  galleryImgContainer.addEventListener("click", expandArt);
+});
+
+// event listener to art display
+artDisplay.addEventListener("click", function (event) {
+  if(event.target.id === "art-display"){
+    this.classList.remove("active");
+  }
+});
 
 
 
@@ -149,4 +169,25 @@ function deleteGalleryItem(event){
       window.location.reload();
     }
   });
+}
+
+/**
+ * function to expand gallery art item
+ * @param event the click event
+ * @return null
+ */
+function expandArt(event){
+  let image = this.querySelector("img");
+  let title = this.parentElement.querySelector(".art-title").innerText;
+  let desc = this.parentElement.querySelector(".art-desc").innerText;
+
+  let artDisplayImg = artDisplay.querySelector("img");
+  let artDisplayTitle = artDisplay.querySelector(".title");
+  let artDisplayDesc = artDisplay.querySelector(".desc");
+
+  artDisplayImg.src = image.src;
+  artDisplayTitle.innerText = title;
+  artDisplayDesc.innerText = desc;
+
+  artDisplay.classList.add("active");
 }
