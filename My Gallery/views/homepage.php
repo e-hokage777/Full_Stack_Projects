@@ -49,7 +49,7 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                             <img src="../assets/images/icons/Logo.png" alt="logo">
                         </div>
                         <div class="title">
-                            <h1><?php echo $user["username"] . "'s" ?> gallery</h1>
+                            <h1><?php echo htmlspecialchars($user["username"]) . "'s" ?> gallery</h1>
                         </div>
                         <div class="buttons">
                             <button id="user-button" class="header-button">
@@ -81,15 +81,15 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
                                         $art_id = $art["id"];
                                         $art_title = $art["title"];
                                         $art_description = $art["description"];
-                                        $art_name = $art["name"];
+                                        $art_name = htmlspecialchars($art["name"]);
                                         $art_location = $art["location"];
 
-                                        $username = $user["username"];
+                                        $username = htmlspecialchars($user["username"]);
 
 
                                         // checking if title and description were given
-                                        $art_title = $art_title ? $art_title : $user["username"] . "'s Art";
-                                        $art_description = $art_description ? $art_description : "Art created by " . $user["username"];
+                                        $art_title = htmlspecialchars($art_title ? $art_title : $user["username"] . "'s Art");
+                                        $art_description = htmlspecialchars($art_description ? $art_description : "Art created by " . $user["username"]);
 
                                         // csrf token
                                         $token = createCsrfToken();
@@ -178,7 +178,6 @@ if (!isset($_SESSION["userId"]) || !isset($_SESSION["isUserLoggedIn"]) || !($_SE
             <script src="../assets/js/general.js"></script>
             <script src="../assets/js/authenticate.js"></script>
             <script src="../assets/js/homepage.js"></script>
-
         </body>
 
         </html>
